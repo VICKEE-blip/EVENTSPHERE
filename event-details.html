@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event details | Eventsphere</title>
+    <link rel="stylesheet" href="booking-flow.css">
+    <script src="booking-flow.js" defer></script>
+</head>
+<body data-page="event">
+    <header class="site-header">
+        <a class="brand" href="events.html">Eventsphere</a>
+        <nav aria-label="Main navigation">
+            <a href="events.html">All events</a>
+            <a href="events.html#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="event-hero">
+            <img id="eventImage" alt="">
+            <div class="event-hero-shade"></div>
+            <div class="event-hero-content">
+                <p class="eyebrow">Make a moment of it</p>
+                <h1 id="eventTitle"></h1>
+                <p class="event-meta"><span id="eventDate"></span><span id="eventLocation"></span></p>
+            </div>
+        </section>
+
+        <div class="page-container">
+            <div class="booking-layout">
+                <div>
+                    <section class="panel">
+                        <p class="eyebrow">The experience</p>
+                        <h2>About this event</h2>
+                        <p id="eventDescription" class="muted-copy"></p>
+                    </section>
+                    <section class="panel">
+                        <p class="eyebrow">Your ticket options</p>
+                        <h2>Choose tickets</h2>
+                        <p class="muted-copy">Select a quantity for each ticket type. You can mix categories.</p>
+                        <form id="ticketForm">
+                            <div id="ticketOptions" class="ticket-options"></div>
+                            <div class="selection-total">
+                                <span id="selectionCount">No tickets selected</span>
+                                <strong id="selectionTotal">USD 0.00</strong>
+                            </div>
+                            <button class="primary-button" id="continueButton" type="submit" disabled>Continue to checkout</button>
+                            <p id="eventMessage" class="form-message" role="status" aria-live="polite"></p>
+                        </form>
+                    </section>
+                </div>
+                <aside class="panel event-note">
+                    <span class="note-icon" aria-hidden="true">i</span>
+                    <h2>Good to know</h2>
+                    <p class="muted-copy">Your booking is only reserved for review after you submit your payment proof. Tickets are emailed after the payment is approved.</p>
+                    <a class="text-link" href="events.html">Browse other events</a>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <span>Eventsphere</span>
+        <span>Discover and book amazing events.</span>
+    </footer>
+</body>
+</html>

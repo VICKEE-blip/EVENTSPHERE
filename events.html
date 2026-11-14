@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Eventsphere - Premium Tickets</title>
+        <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            body{
+                background: #0f172a;
+                color: white;
+            }
+
+            /*Navbar*/
+            nav{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px 8%;
+                position: sticky;
+                top: 0;
+                background: rgba(15, 23, 42, 0.95);
+                backdrop-filter: blur(10px);
+                z-index: 10;
+            }
+
+            .logo{
+                font-size: 28px;
+                font-weight: bold;
+                color: #8b5cf6;
+            }
+
+            .nav-links{
+                display: flex;
+                gap: 30px;
+            }
+
+            .nav-links a{
+                text-decoration: none;
+                color: white;
+                transition: color .2s ease;
+            }
+
+            .nav-links a:hover{
+                color: #8b5cf6;
+            }
+
+            .login-btn{
+                background: #8b5cf6;
+                border: none;
+                padding: 10px 20px;
+                color: white;
+                border-radius: 30px;
+                cursor: pointer;
+            }
+
+            .login-btn:disabled,
+            .card button:disabled{
+                cursor: not-allowed;
+                opacity: .65;
+            }
+
+            /*Hero*/
+            .hero{
+                min-height: 80vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 0 20px;
+                background: linear-gradient(rgba(15,23,42,.7),rgba(15,23,42,.7)),url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1800')center/cover;
+            }
+
+            .hero h1{
+                font-size: 4rem;
+                margin-bottom: 20px;
+            }
+
+            .hero p{
+                font-size: 1.2rem;
+                max-width: 700px;
+                color:#d1d5db;
+                margin-bottom: 30px;
+            }
+
+            .search-box{
+                background: white;
+                padding: 15px;
+                border-radius: 60px;
+                display: flex;
+                gap: 10px;
+                width: 90%;
+                max-width: 700px;
+            }
+
+            .search-box input{
+                min-width: 0;
+            }
+
+            .search-box input{
+                flex: 1;
+                border: none;
+                outline: none;
+                padding: 12px;
+            }
+
+            .search-box button{
+                border: none;
+                background: #8b5cf6;
+                color: white;
+                padding: 12px 25px;
+                border-radius: 30px;
+                cursor: pointer;
+            }
+
+            /*Events Section*/
+            .events{
+                padding: 80px 8%;
+            }
+
+            .section-title{
+                font-size: 2.3rem;
+                text-align: center;
+                margin-bottom: 40px;
+            }
+
+            .cards{
+                display: grid;
+                grid-template-columns: repeat(auto-fit,minmax(min(100%, 300px),1fr));
+                gap: 30px;
+            }
+
+            .card{
+                background: #141b34;
+                border: 1px solid rgba(255,255,255,0.08);
+                border-radius: 24px;
+                overflow: hidden;
+                transition: transform .2s ease, box-shadow .2s ease;
+            }
+
+            .card:hover{
+                transform: translateY(-8px);
+                box-shadow: 
+                0 20px 50px rgba(139,92,246,.3);
+            }
+
+            .card img{
+                width: 100%;
+                height: 240px;
+                object-fit: cover;
+            }
+
+            .card-content{
+                padding: 25px;
+            }
+
+            .card-content h3{
+                margin-bottom: 10px;
+                font-size: 1.5rem;
+            }
+
+            .card-content p{
+                color: #cbd5e1;
+                margin-bottom: 10px;
+            }
+
+            .price{
+                font-size: 1.3rem;
+                color: #f97316;
+                font-weight: bold;
+                margin: 15px 0;
+            }
+
+            .card button,
+            .ticket-link{
+                display: block;
+                width: 100%;
+                border: none;
+                background: #8b5cf6;
+                padding: 14px;
+                color: white;
+                border-radius: 10px;
+                cursor: pointer;
+                font: inherit;
+                font-weight: 700;
+                text-align: center;
+                text-decoration: none;
+            }
+
+            .ticket-link:hover{
+                background: #7c3aed;
+            }
+
+            /*Why Us*/
+            .features{
+                padding: 80px 8%;
+                background: #111827;
+            }
+
+            .feature-grid{
+                display: grid;
+                grid-template-columns: repeat(auto-fit,minmax(min(100%, 220px),1fr));
+                gap: 20px;
+            }
+
+            .feature{
+                background: #1e293b;
+                padding: 25px;
+                border-radius: 15px;
+                text-align: center;
+            }
+
+            .feature h4{
+                margin-bottom: 10px;
+            }
+
+            .feature p{
+                margin: 0;
+                color: #cbd5e1;
+            }
+
+            .search-status{
+                margin-top: 20px;
+                color: #cbd5e1;
+                text-align: center;
+            }
+
+            .search-status:empty{
+                display: none;
+            }
+
+            /*footer*/
+            footer{
+                text-align: center;
+                margin-top: 100px;
+                background: #0b1020;
+                padding: 70px 8% 30px;
+                border-top: 1px solid rgba(255,255,255,.08);
+                color: #94a3b8;
+            }
+
+            .footer-container{
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr;
+                gap: 40px;
+                text-align: left;
+            }
+
+            .footer-brand p{
+                color:#94a3b8;
+                margin-top: 10px;
+                line-height: 1.8;
+            }
+
+            .footer-links{
+                display: flex;
+                flex-direction: column;
+                gap: 9px;
+            }
+
+            .footer-links h4{
+                margin-bottom: 15px;
+            }
+
+            .footer-links a:hover{
+                color: #8b5cf6;
+            }
+
+            .footer-links a{
+                color: #94a3b8;
+                text-decoration: none;
+            }
+
+            .social-icons{
+                display: flex;
+                gap: 15px;
+                margin-top: 15px;
+            }
+
+            .social-icons span{
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                background: #141b34;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+            }
+
+            .copyright{
+                text-align: center;
+                margin-top: 50px;
+                color: #64748b;
+            }
+
+            @media(max-width:768px){
+                nav{
+                    padding: 16px 5%;
+                    gap: 16px;
+                    flex-wrap: wrap;
+                }
+
+                .logo{
+                    font-size: 23px;
+                }
+
+                .nav-links{
+                    display: flex;
+                    gap: 16px;
+                    order: 3;
+                    width: 100%;
+                    justify-content: center;
+                }
+
+                .hero h1{
+                    font-size: 2.5rem;
+                    text-align: center;
+                }
+
+                .search-box{
+                    flex-direction: column;
+                    border-radius: 20px;
+                }
+
+                .footer-container{
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                    gap: 28px;
+                }
+            }
+
+            @media(max-width:480px){
+                .hero h1{ font-size: 2rem; }
+                .events, .features{ padding: 55px 6%; }
+                .section-title{ font-size: 1.8rem; }
+                .footer-container{ grid-template-columns: 1fr; }
+                .social-icons{ flex-wrap: wrap; }
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <nav>
+            <div class="logo">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <rect x="3" y="6" width="12" rx="2" stroke="#FF7A00" stroke-width="2"/>
+                    <path d="m8 10H16" stroke="#FF7A00" stroke-width="2"/> 
+                </svg>
+                <span>Eventsphere</span>
+            </div>
+
+            <div class="nav-links">
+                <a href="#events">Events</a>
+                <a href="#features">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+
+            <button class="login-btn" type="button" disabled title="Login is coming soon">Login</button>
+        </nav>
+
+        <section class="hero">
+            <h1>Find Amazing Events Near You</h1>
+
+            <p>
+                Discover concerts, conferences and unforgettable experiences.
+                Book your ticket instantly and secure your spot.
+            </p>
+
+            <form class="search-box" id="event-search" role="search">
+                <input id="event-query" type="search" placeholder="Search events" aria-label="Search events">
+                <input id="event-location" type="search" placeholder="Location" aria-label="Search by location">
+                <button type="submit">Search</button>
+            </form>
+        </section>
+
+        <section class="events" id="events">
+            <h2 class="section-title">Available Events</h2>
+
+            <div class="cards" id="event-cards">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=1200" alt="Crowd enjoying a live music event" loading="lazy">
+                <div class="card-content">
+                    <h3>Kisumu kalenjin connect</h3>
+                    <p>
+                        <i class="fa-solid fa-location-dot"></i>
+                        klub dar place
+                    </p>
+                    <p>
+                        <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                        NOV 13,2026
+                    </p>
+                    <p>
+                        <i class="fa-solid fa-ticket"></i>
+                        VIP & Regular
+                    </p>
+
+                    <div class="price">From USD 3</div>
+
+                    <a class="ticket-link" href="event-details.html?event=kisumu">View event</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200" alt="People attending a technology conference" loading="lazy">
+                <div class="card-content">
+                    <h3>Tech summit 2027</h3>
+                    <p>
+                         <i class="fa-solid fa-location-dot"></i>
+                         Sarit hall
+                    </p>
+                    <p>
+                         <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                         Jan 15, 2027
+                    </p>
+                    <p>
+                        <i class="fa-solid fa-ticket"></i>
+                        AI, Startups & Innovation
+                    </p>
+
+                    <div class="price">From USD 30</div>
+
+                    <a class="ticket-link" href="event-details.html?event=tech-summit">View event</a>
+                </div>
+            </div>
+            </div>
+            <p class="search-status" id="search-status" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="features" id="features">
+            <h2 class="section-title">why choose Eventsphere?</h2>
+
+            <div class="feature-grid">
+
+                <div class="feature">
+                    <h4>Voucher Approval</h4>
+                    <p>Submit payment proof and receive your ticket details by email after approval.</p>
+                </div>
+
+                <div class="feature">
+                    <h4>QR Code Entry</h4>
+                    <p>No printed tickets required.</p>
+                </div>
+
+                <div class="feature">
+                    <h4>Premium Events</h4>
+                    <p>Exclusive experiences and VIP access.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <footer>
+
+            <div class="footer-container">
+
+                <div class="footer-brand">
+                    <h2>Eventsphere</h2>
+                    <p>
+                        Discover and book amazing events near you
+                    </p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <a href="#events">Events</a>
+                    <a href="#features">Why Eventsphere</a>
+                    <a href="#contact">Contact</a>
+                </div>
+
+                <div class="footer-social" id="contact">
+                    <h4>Follow Us</h4>
+
+                    <div class="social-icons" aria-label="Social profiles will be added soon">
+
+                        <span aria-hidden="true">
+                            <i class="fab fa-facebook-f"></i>
+                        </span>
+
+                        <span aria-hidden="true">
+                            <i class="fab fa-instagram"></i>
+                        </span>
+
+                        <span aria-hidden="true">
+                            <i class="fab fa-x-twitter"></i>
+                        </span>
+
+                        <span aria-hidden="true">
+                            <i class="fab fa-youtube"></i>
+                        </span>
+
+                        <span aria-hidden="true">
+                            <i class="fab fa-tiktok"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright">
+            &copy;Eventsphere 2026. All rights Reserved.
+            </div>
+
+        </footer>
+
+        <script>
+            const searchForm = document.getElementById("event-search");
+            const eventCards = Array.from(document.querySelectorAll("#event-cards .card"));
+            const searchStatus = document.getElementById("search-status");
+
+            searchForm.addEventListener("submit", (event) => {
+                event.preventDefault();
+
+                const query = document.getElementById("event-query").value.trim().toLowerCase();
+                const location = document.getElementById("event-location").value.trim().toLowerCase();
+                let visibleCount = 0;
+
+                eventCards.forEach((card) => {
+                    const text = card.textContent.toLowerCase();
+                    const matches = text.includes(query) && text.includes(location);
+                    card.hidden = !matches;
+                    if (matches) visibleCount += 1;
+                });
+
+                searchStatus.textContent = visibleCount
+                    ? `${visibleCount} event${visibleCount === 1 ? "" : "s"} found.`
+                    : "No events match your search. Try another event name or location.";
+            });
+        </script>
+    </body>
+</html>

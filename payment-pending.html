@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment proof | Eventsphere</title>
+    <link rel="stylesheet" href="booking-flow.css">
+    <script src="booking-flow.js" defer></script>
+</head>
+<body data-page="payment">
+    <header class="site-header">
+        <a class="brand" href="events.html">Eventsphere</a>
+        <nav aria-label="Main navigation">
+            <a href="events.html">All events</a>
+            <a href="events.html#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main class="page-container narrow-container">
+        <div class="steps" aria-label="Booking progress">
+            <span class="step complete">1. Tickets</span>
+            <span class="step complete">2. Checkout</span>
+            <span class="step current" aria-current="step">3. Payment proof</span>
+        </div>
+
+        <section id="paymentMissing" class="panel" hidden>
+            <h1>No booking details found</h1>
+            <p class="muted-copy">Please select your event tickets and enter your contact details first.</p>
+            <a class="primary-button button-link" href="events.html">Browse events</a>
+        </section>
+
+        <section id="paymentFormPanel" class="panel" hidden>
+            <p class="eyebrow">Final step</p>
+            <h1 class="page-title">Submit your payment proof</h1>
+            <p class="muted-copy page-intro">Upload a clear voucher for the exact amount below.We will email you with your ticket/s details once payment is approved.</p>
+
+            <div class="payment-summary">
+                <div>
+                    <span class="summary-label">Event</span>
+                    <strong id="paymentEventName"></strong>
+                </div>
+                <div>
+                    <span class="summary-label">Booking reference</span>
+                    <strong id="bookingReference"></strong>
+                </div>
+                <div class="summary-total">
+                    <span class="summary-label">Exact amount due</span>
+                    <strong id="paymentTotal"></strong>
+                </div>
+            </div>
+
+            <form id="proofForm" class="stacked-form" action="https://formsubmit.co/vickeeblib@gmail.com" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="_subject" id="emailSubject">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_next" id="returnUrl">
+                <input type="hidden" name="Booking reference" id="emailReference">
+                <input type="hidden" name="Event" id="emailEvent">
+                <input type="hidden" name="Ticket summary" id="emailTickets">
+                <input type="hidden" name="Expected total" id="emailTotal">
+                <input type="hidden" name="Customer name" id="emailCustomerName">
+                <input type="hidden" name="Customer phone" id="emailCustomerPhone">
+
+                <label for="senderEmail">Booking email</label>
+                <input id="senderEmail" name="email" type="email" readonly required>
+
+                <label for="paidAmount">Amount shown on your voucher (USD)</label>
+                <input id="paidAmount" name="Amount stated by customer" type="number" min="0.01" step="0.01" inputmode="decimal" required aria-describedby="amountHelp">
+                <span id="amountHelp" class="field-help">Enter the amount shown on your proof. It must match the exact total above.</span>
+
+                <label for="paymentReference">Payment reference (optional)</label>
+                <input id="paymentReference" name="Payment reference" autocomplete="off">
+
+                <label for="paymentProof">Voucher or payment proof</label>
+                <input id="paymentProof" name="attachment" type="file" accept="image/*,.pdf,application/pdf" required aria-describedby="fileHelp">
+                <span id="fileHelp" class="field-help">Accepted: image or PDF. Maximum file size: 10 MB.</span>
+
+                <p id="proofMessage" class="form-message" role="status" aria-live="polite"></p>
+                <button class="primary-button" id="submitProof" type="submit">SUBMIT</button>
+            </form>
+
+            <p class="notice">Lookout for email containing your ticket details.Incase of any delays do not hesitate to reach out to us.</p>
+        </section>
+
+        <section id="pendingConfirmation" class="panel confirmation-panel" hidden>
+            <div class="success-mark" aria-hidden="true">✓</div>
+            <p class="eyebrow">Proof submitted</p>
+            <h1 class="page-title">Your booking is pending approval</h1>
+            <p class="muted-copy">Your payment proof has been sent for review. Once approved, your ticket details will be sent to your booking email.</p>
+            <div class="payment-summary">
+                <div><span class="summary-label">Booking reference</span><strong id="confirmationReference"></strong></div>
+                <div><span class="summary-label">Event</span><strong id="confirmationEvent"></strong></div>
+                <div class="summary-total"><span class="summary-label">Amount submitted</span><strong id="confirmationTotal"></strong></div>
+            </div>
+            <a class="primary-button button-link" id="contactButton" href="mailto:vickeeblib@gmail.com">Contact us about this booking</a>
+            <p class="small-note">Keep your booking reference in case you need to follow up.</p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <span>Eventsphere</span>
+        <span>Need help? <a href="mailto:vickeeblib@gmail.com">Contact us by email</a></span>
+    </footer>
+</body>
+</html>

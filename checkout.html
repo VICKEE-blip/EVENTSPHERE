@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Eventsphere</title>
+    <link rel="stylesheet" href="booking-flow.css">
+    <script src="booking-flow.js" defer></script>
+</head>
+<body data-page="checkout">
+    <header class="site-header">
+        <a class="brand" href="events.html">Eventsphere</a>
+        <nav aria-label="Main navigation">
+            <a href="events.html">All events</a>
+            <a href="events.html#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main class="page-container narrow-container">
+        <div class="steps" aria-label="Booking progress">
+            <span class="step complete">1. Tickets</span>
+            <span class="step current" aria-current="step">2. Checkout</span>
+            <span class="step">3. Payment proof</span>
+        </div>
+        <p class="eyebrow">Almost there</p>
+        <h1 class="page-title">Review your booking</h1>
+        <p class="muted-copy page-intro">Check your ticket quantities and total. You will upload your payment voucher on the next step.</p>
+
+        <div id="checkoutMissing" class="panel" hidden>
+            <h2>No ticket selection found</h2>
+            <p class="muted-copy">Choose an event and ticket quantities before checkout.</p>
+            <a class="primary-button button-link" href="events.html">Browse events</a>
+        </div>
+
+        <div id="checkoutContent" class="checkout-grid" hidden>
+            <section class="panel">
+                <p class="eyebrow">Your order</p>
+                <h2 id="checkoutEventName"></h2>
+                <p class="muted-copy" id="checkoutEventMeta"></p>
+                <div id="orderLines" class="order-lines"></div>
+                <div class="total-row">
+                    <span>Total due</span>
+                    <strong id="checkoutTotal"></strong>
+                </div>
+                <p class="small-note">Please make payment for this exact total. Your payment proof will be checked manually before tickets are issued.</p>
+            </section>
+
+            <section class="panel">
+                <p class="eyebrow">Booking contact</p>
+                <h2>Where should we reach you?</h2>
+                <form id="checkoutForm" class="stacked-form">
+                    <label for="customerName">Full name</label>
+                    <input id="customerName" name="customerName" autocomplete="name" required>
+
+                    <label for="customerEmail">Email address</label>
+                    <input id="customerEmail" name="customerEmail" type="email" autocomplete="email" required>
+
+                    <label for="customerPhone">Phone number</label>
+                    <input id="customerPhone" name="customerPhone" type="tel" autocomplete="tel" required>
+
+                    <button class="primary-button" type="submit">Continue to payment proof</button>
+                    <p id="checkoutMessage" class="form-message" role="status" aria-live="polite"></p>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <span>Eventsphere</span>
+        <span>Questions? Email <a href="mailto:vickeeblib@gmail.com">vickeeblib@gmail.com</a></span>
+    </footer>
+</body>
+</html>
